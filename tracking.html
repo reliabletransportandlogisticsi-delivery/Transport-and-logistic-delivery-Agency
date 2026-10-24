@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Live Pet Tracking | Transport and Pet Delivery Solution</title>
+
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/tracking.css">
+
+  <!-- Leaflet map -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  >
+</head>
+
+<body class="page-tracking">
+
+  <!-- Navigation -->
+  <header class="nav">
+    <div class="container nav-inner">
+
+      <a class="brand" href="/">
+        <span class="brand-mark">🐾</span>
+        <span class="brand-name">
+          Transport and Pet Delivery Solution
+        </span>
+      </a>
+
+      <button
+        class="menu"
+        type="button"
+        aria-label="Open navigation"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
+
+      <nav class="nav-links">
+        <a href="/">Home</a>
+        <a href="services.html">Services</a>
+        <a href="booking.html">Book</a>
+        <a class="active" href="tracking.html">Track</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="btn btn-outline" href="login.html">Login</a>
+        <a class="btn btn-primary" href="booking.html">
+          Book Delivery
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- Hero -->
+  <section class="page-hero">
+    <div class="container">
+
+      <div class="eyebrow">
+        Live GPS visibility
+      </div>
+
+      <h1>
+        Track your pet's journey.
+      </h1>
+
+      <p>
+        Follow the delivery status, courier position and estimated
+        arrival from one live map.
+      </p>
+
+      <div class="tracking-box">
+
+        <input
+          id="trackingId"
+          type="text"
+          placeholder="Example: TPDS-2026-001"
+          autocomplete="off"
+        >
+
+        <button
+          id="trackBtn"
+          class="btn btn-primary"
+          type="button"
+        >
+          Track now
+        </button>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- Tracking -->
+  <section class="section">
+
+    <div class="container">
+
+      <!-- Tracking result -->
+      <div id="trackingResult" style="display:none">
+
+        <div class="track-layout">
+
+          <!-- Delivery information -->
+          <div class="tracking-card">
+
+            <span
+              class="badge green"
+              id="statusBadge"
+            >
+              In transit
+            </span>
+
+            <h2 id="petTitle">
+              Your pet
+            </h2>
+
+            <p
+              class="muted"
+              id="routeText"
+            >
+              Pickup → Destination
+            </p>
+
+            <div
+              class="timeline"
+              id="timeline"
+            ></div>
+
+            <hr
+              style="
+                border:0;
+                border-top:1px solid var(--line);
+                margin:24px 0;
+              "
+            >
+
+            <p>
+              <strong>ETA:</strong>
+              <span id="eta">—</span>
+            </p>
+
+            <p>
+              <strong>Courier:</strong>
+              <span id="courier">—</span>
+            </p>
+
+            <p>
+              <strong>Vehicle:</strong>
+              <span id="vehicle">—</span>
+            </p>
+
+          </div>
+
+
+          <!-- Live map -->
+          <div class="tracking-card">
+
+            <div
+              id="liveMap"
+              class="map"
+              aria-label="Live pet delivery map"
+            ></div>
+
+            <div class="map-legend">
+
+              <span>
+                <i class="legend-dot pickup"></i>
+                Pickup
+              </span>
+
+              <span>
+                <i class="legend-dot courier"></i>
+                Courier
+              </span>
+
+              <span>
+                <i class="legend-dot destination"></i>
+                Destination
+              </span>
+
+            </div>
+
+            <p
+              class="muted"
+              style="margin-bottom:0"
+            >
+              Live map uses OpenStreetMap tiles.
+              Courier updates are delivered through
+              the site's real-time connection.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- Empty state -->
+      <div
+        id="emptyTrack"
+        class="form-card"
+      >
+
+        <h2>
+          Track a delivery
+        </h2>
+
+        <p class="muted">
+          Try the seeded demo tracking number:
+        </p>
+
+        <button
+          class="btn btn-outline"
+          id="demoTrackBtn"
+          type="button"
+        >
+          TPDS-2026-001
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- Footer -->
+  <footer class="footer">
+
+    <div class="container footer-grid">
+
+      <div>
+        <h3>
+          Transport and Pet Delivery Solution
+        </h3>
+
+        <p>
+          Reliable pet transportation with transparent
+          delivery visibility.
+        </p>
+      </div>
+
+      <div>
+        <h3>Contact</h3>
+
+        <a href="mailto:reliabletransportandlogisticsi@gmail.com">
+          reliabletransportandlogisticsi@gmail.com
+        </a>
+
+        <a href="tel:+19012907231">
+          +1 901 290 7231
+        </a>
+      </div>
+
+    </div>
+
+    <div class="container copyright">
+
+      <span>
+        © 2026 Transport and Pet Delivery Solution
+      </span>
+
+      <span>
+        Live delivery visibility
+      </span>
+
+    </div>
+
+  </footer>
+
+
+  <div
+    id="toast"
+    class="toast"
+  ></div>
+
+
+  <!-- Socket.IO -->
+  <script src="/socket.io/socket.io.js"></script>
+
+  <!-- Leaflet -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Application scripts -->
+  <script src="js/app.js"></script>
+  <script src="js/tracking.js"></script>
+
+</body>
+</html>

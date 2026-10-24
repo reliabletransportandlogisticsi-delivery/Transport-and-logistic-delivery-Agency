@@ -1,0 +1,3 @@
+if(!token()){location.href='/login.html'}
+async function send(form,url){const data=Object.fromEntries(new FormData(form));const r=await fetch(API+url,{method:'PATCH',headers:headers(),body:JSON.stringify(data)});const j=await r.json();if(!r.ok)throw new Error(j.message);toast('Update sent successfully')}
+const sf=document.getElementById('statusForm');if(sf)sf.addEventListener('submit',async e=>{e.preventDefault();try{await send(sf,'/deliveries/'+encodeURIComponent(sf.trackingId.value)+'/status')}catch(err){toast(err.message)}});const lf=document.getElementById('locationForm');if(lf)lf.addEventListener('submit',async e=>{e.preventDefault();try{await send(lf,'/deliveries/'+encodeURIComponent(lf.trackingId.value)+'/location')}catch(err){toast(err.message)}});

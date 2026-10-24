@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <title>Admin | Transport and Pet Delivery Solution</title>
+
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body class="page-admin">
+
+<header class="nav">
+
+  <div class="container nav-inner">
+
+    <a class="brand" href="/">
+      <span class="brand-mark">🐾</span>
+      <span class="brand-name">
+        Transport and Pet Delivery Solution
+      </span>
+    </a>
+
+    <button
+      class="menu"
+      type="button"
+      aria-label="Open navigation">
+      ☰
+    </button>
+
+    <nav class="nav-links">
+
+      <a href="/">Home</a>
+
+      <a class="active" href="admin.html">
+        Admin
+      </a>
+
+      <a href="tracking.html">
+        Track
+      </a>
+
+      <a href="contact.html">
+        Contact
+      </a>
+
+      <div class="nav-actions">
+
+        <button
+          class="btn btn-outline"
+          onclick="pawgo.logout()">
+          Logout
+        </button>
+
+      </div>
+
+    </nav>
+
+  </div>
+
+</header>
+
+
+<!-- =================================
+     ADMIN DASHBOARD
+================================== -->
+
+<section class="section">
+
+  <div class="container">
+
+    <div class="section-head">
+
+      <div>
+
+        <div class="eyebrow">
+          Operations
+        </div>
+
+        <h2>
+          Admin dashboard
+        </h2>
+
+        <p>
+          Monitor users, deliveries and customer support.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- STATS -->
+
+    <div
+      class="stats"
+      style="margin-bottom:25px">
+
+      <div class="stat">
+        <strong id="users">0</strong>
+        <span>Users</span>
+      </div>
+
+      <div class="stat">
+        <strong id="deliveries">0</strong>
+        <span>Deliveries</span>
+      </div>
+
+      <div class="stat">
+        <strong id="active">0</strong>
+        <span>Active deliveries</span>
+      </div>
+
+      <div class="stat">
+        <strong id="contacts">0</strong>
+        <span>New contacts</span>
+      </div>
+
+    </div>
+
+
+    <!-- CREATE BOOKING -->
+
+    <div class="form-card admin-booking-card">
+
+      <div class="section-head">
+
+        <div>
+
+          <div class="eyebrow">
+            Operations
+          </div>
+
+          <h2>
+            Create Booking
+          </h2>
+
+          <p>
+            Create a delivery for an existing customer.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div
+        id="adminBookingNotice"
+        class="notice"
+        style="display:none">
+      </div>
+
+
+      <form id="adminBookingForm">
+
+        <div class="form-grid">
+
+
+
+          
+<!-- CUSTOMER TYPE -->
+<div class="field full">
+  <label for="customerType">Customer type *</label>
+
+  <select id="customerType" name="customerType">
+    <option value="existing">Existing customer</option>
+    <option value="new">New customer</option>
+  </select>
+</div>
+
+<!-- EXISTING CUSTOMER -->
+<div class="field full" id="existingCustomerFields">
+  <label for="customerNameInput">Select existing customer *</label>
+
+  <input
+    type="text"
+    id="customerNameInput"
+    placeholder="Enter customer name or email"
+    list="customerNameList"
+    autocomplete="off"
+  >
+
+  <datalist id="customerNameList"></datalist>
+
+  <select id="customerId" name="customerId" hidden>
+    <option value="">Select a customer</option>
+  </select>
+</div>
+
+<!-- NEW CUSTOMER -->
+<div class="field full" id="newCustomerFields" hidden>
+  <label for="newCustomerName">New customer name *</label>
+
+  <input
+    type="text"
+    id="newCustomerName"
+    name="newCustomerName"
+    placeholder="Enter customer's full name"
+    autocomplete="name"
+  >
+
+  <label for="newCustomerEmail">New customer email *</label>
+
+  <input
+    type="email"
+    id="newCustomerEmail"
+    name="newCustomerEmail"
+    placeholder="customer@example.com"
+    autocomplete="email"
+  >
+</div>
+
+
+          <!-- PET -->
+
+          <div class="field">
+
+            <label for="adminPetName">
+              Pet name *
+            </label>
+
+            <input
+              id="adminPetName"
+              name="petName"
+              required
+              placeholder="Bella">
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="adminPetType">
+              Pet type
+            </label>
+
+            <select
+              id="adminPetType"
+              name="petType">
+
+              <option>Dog</option>
+              <option>Cat</option>
+              <option>Rabbit</option>
+              <option>Bird</option>
+              <option>Other</option>
+
+            </select>
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="adminPetSize">
+              Pet size
+            </label>
+
+            <select
+              id="adminPetSize"
+              name="petSize">
+
+              <option value="small">
+                Small
+              </option>
+
+              <option
+                value="medium"
+                selected>
+                Medium
+              </option>
+
+              <option value="large">
+                Large
+              </option>
+
+              <option value="xlarge">
+                X-Large
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="adminService">
+              Service
+            </label>
+
+            <select
+              id="adminService"
+              name="service">
+
+              <option value="pet-transport">
+                Pet Transport
+              </option>
+
+              <option value="vet-grooming">
+                Vet & Grooming
+              </option>
+
+              <option value="airport-transfer">
+                Airport Transfer
+              </option>
+
+              <option value="pet-essentials">
+                Pet Essentials
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- ADDRESSES -->
+
+          <div class="field full">
+
+            <label for="adminPickup">
+              Pickup address *
+            </label>
+
+            <input
+              id="adminPickup"
+              name="pickupAddress"
+              required
+              placeholder="Street, City, State">
+
+          </div>
+
+
+          <div class="field full">
+
+            <label for="adminDestination">
+              Destination address *
+            </label>
+
+            <input
+              id="adminDestination"
+              name="destinationAddress"
+              required
+              placeholder="Street, City, State">
+
+          </div>
+
+
+          <!-- DATE / DISTANCE -->
+
+          <div class="field">
+
+            <label for="adminScheduledAt">
+              Pickup date/time
+            </label>
+
+            <input
+              id="adminScheduledAt"
+              name="scheduledAt"
+              type="datetime-local">
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="adminDistance">
+              Distance (miles)
+            </label>
+
+            <input
+              id="adminDistance"
+              name="distanceMiles"
+              type="number"
+              min="0"
+              value="10">
+
+          </div>
+
+
+          <!-- PAYMENT -->
+
+          <div class="field">
+
+            <label for="adminPayment">
+              Payment method
+            </label>
+
+            <select
+              id="adminPayment"
+              name="paymentMethod">
+
+              <option value="cash">
+                Cash
+              </option>
+
+              <option value="card">
+                Card
+              </option>
+
+              <option value="apple_pay">
+                Apple Pay
+              </option>
+
+              <option value="gift_card">
+                Gift Card
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="adminPhone">
+              Customer phone
+            </label>
+
+            <input
+              id="adminPhone"
+              name="phone"
+              placeholder="+1 555 123 4567">
+
+          </div>
+
+
+          <!-- NOTES -->
+
+          <div class="field full">
+
+            <label for="adminPetNotes">
+              Pet notes
+            </label>
+
+            <textarea
+              id="adminPetNotes"
+              name="petNotes"
+              placeholder="Temperament, feeding instructions, carrier details..."></textarea>
+
+          </div>
+
+
+          <!-- PRICE -->
+
+          <div class="field full">
+
+            <div class="admin-quote">
+
+              <span>
+                Estimated total
+              </span>
+
+              <strong id="adminQuote">
+                $49.00
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <!-- SUBMIT -->
+
+          <div class="field full">
+
+            <button
+              class="btn btn-primary"
+              type="submit">
+
+              Create Booking & Generate Tracking ID
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </form>
+
+    </div>
+
+
+    <!-- DELIVERIES -->
+
+    <div
+      class="section-head"
+      style="margin-top:55px">
+
+      <div>
+
+        <div class="eyebrow">
+          Deliveries
+        </div>
+
+        <h2>
+          Recent deliveries
+        </h2>
+
+      </div>
+
+    </div>
+
+
+    <div class="table-wrap">
+
+      <table class="table">
+
+        <thead>
+
+          <tr>
+
+            <th>
+              Tracking ID
+            </th>
+
+            <th>
+              Pet
+            </th>
+
+            <th>
+              Customer
+            </th>
+
+            <th>
+              Status
+            </th>
+
+            <th>
+              Amount
+            </th>
+
+          </tr>
+
+        </thead>
+
+        <tbody id="adminRows">
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<footer class="footer">
+
+  <div class="container copyright">
+
+    <span>
+      © 2026 Transport and Pet Delivery Solution
+    </span>
+
+    <span>
+      Admin operations
+    </span>
+
+  </div>
+
+</footer>
+
+
+<div
+  id="toast"
+  class="toast">
+</div>
+
+
+<script src="js/app.js"></script>
+<script src="js/admin.js"></script>
+
+</body>
+</html>
